@@ -13,16 +13,17 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Produto {
+public class ItemPedido {
 
 	@Id
 	@EqualsAndHashCode.Include
 	private Integer id;
 	
-	private String nome;
+	private Integer pedidoId;
 	
-	private String descricao;
+	private Integer produtoId;
 	
-	private BigDecimal preco;
+	private BigDecimal precoProduto;
 	
+	private Integer quantidade;
 }
