@@ -12,7 +12,7 @@ public class CRUDCliente extends EntityManagerTest{
 	public void inserirCliente() {
 		
 		Cliente cliente = new Cliente();
-		cliente.setId(3);
+//		cliente.setId(3);
 		cliente.setNome("Janeide Estandeslau");
 
 		entityManager.getTransaction().begin();
