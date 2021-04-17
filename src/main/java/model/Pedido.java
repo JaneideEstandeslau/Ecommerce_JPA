@@ -2,6 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -11,6 +12,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -29,20 +34,34 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+	
+	@OneToOne(mappedBy = "pedido")
+	private PagamentoCartao pagamentoCartao;
+	
+	@OneToOne(mappedBy = "pedido")
+	private NotaFiscal notaFiscal;
+	
+	@Embedded
+	private EnderecoEntregaPedido enderecoEntrega;
+	
     @Column(name = "data_pedido")
     private LocalDateTime dataPedido;
+    
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedido> itens;
+    
 
     @Column(name = "data_conclusao")
     private LocalDateTime dataConclusao;
 
-    @Column(name = "nota_fiscal")
-    private Integer notaFiscalId;
 
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
     
-    @Embedded
-    private EnderecoEntregaPedido enderecoEntrega;
+    
 }
